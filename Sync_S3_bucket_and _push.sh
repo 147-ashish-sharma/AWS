@@ -6,7 +6,7 @@
 #!/bin/bash
 mkdir awglogs
 cat <<EOF > alb_logs_download.sh
-/usr/bin/aws s3 sync s3://demo-msfssalb/AWSLogs/860384218481/elasticloadbalancing/eu-west-2/2018/06/07/ awslogs/
+/usr/bin/aws s3 sync s3://<Some_S3_Bucket_Path>/ awslogs/
 a=`ls awslogs/*.gz | cut -d"/" -f2`
 for i in $a; do cp ~/awslogs/$i ~/unzipped_logs/$i; gunzip ~/unzipped_logs/$i; done
 EOF
