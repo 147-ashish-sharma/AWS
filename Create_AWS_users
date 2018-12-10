@@ -1,0 +1,8 @@
+#!/bin/bash
+users = 'user1 user2 ...'
+for user in $users
+{
+aws iam create-user --user-name $user
+aws iam create-login-profile --user-name $user --password MyC0mplexP@ssword
+aws iam add-user-to-group --user-name $user --group-name Team_Group
+}
