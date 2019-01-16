@@ -1,0 +1,1 @@
+aws sts assume-role --role-arn arn:aws:iam::XXXXXXX1234:role/s3-ec2-access- --role-session-name "RoleSession1" | grep -w 'AccessKeyId|SecretAccessKey|SessionToken' | awk  '{print $2}' | sed  's/"//g;s/,//' > awscre;export AWS_ACCESS_KEY_ID=`sed -n '3p' awscre`;export AWS_SECRET_ACCESS_KEY=`sed -n '1p' awscre`;export AWS_SECURITY_TOKEN=`sed -n '2p' awscre`
