@@ -1,0 +1,9 @@
+#!/bin/bash -x
+count=0
+REPOSITORIES=`sh <ASSUME ROLE SCRIPT FOR CROSS ACCOUNT> aws ecr describe-repositories --region eu-west-1 --registry-id <ACCOUNT_ID> sample.json;sed -i '1d' sample.json;jq -r 'map(.[] | .repositoryName)  | join(" ")' sample.json`
+for repo in $REPOSITORIES; do
+count_rep=`sh assumerole.sh aws ecr list-images --repository-name --region eu-west-1 $repo > sample.json ;sed -i '1d' sample.json; jq '.imageIds | unique_by(.imageDigest) | length' sample.json`
+count=`expr $count + $count_rep`
+done
+echo $count
+rm sample.json
